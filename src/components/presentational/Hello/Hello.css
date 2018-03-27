@@ -1,0 +1,9 @@
+.big {
+	font-size: 7em;
+	font-weight: 900;
+	line-height: 1em;
+}
+
+.hello * {
+	color: blue;
+}

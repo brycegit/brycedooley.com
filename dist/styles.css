@@ -1,0 +1,15 @@
+* {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #eee;
+	text-align: center;
+}.big {
+	font-size: 7em;
+	font-weight: 900;
+	line-height: 1em;
+}
+
+.hello * {
+	color: blue;
+}.bye * {
+	color: pink;
+}
