@@ -8,7 +8,7 @@ const Hello = ({ message }) => {
 		<h1>{message}</h1>
 		<h2>{message}</h2>
 		<h3>{message}</h3>
-		<p>This is the cool stuff here. This is the cool stuff here. This is the cool stuff here. This is the cool stuff here.</p>
+		<p>This is the coolest stuff here. This is the cool stuff here. This is the cool stuff here. This is the cool stuff here.</p>
 	</div>
 	)	
 }

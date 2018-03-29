@@ -1,13 +1,9 @@
 import React from 'react';
-import './Bye.css';
+import Loadable from 'react-loadable';
 
-const Bye = ({ message }) => {
-	return (
-		<div className='bye'>
-			<h1>Bye</h1>
-			<p>Cya</p>
-		</div>
-	)	
-}
+const LoadableBye = Loadable({
+  loader: () => import(/* webpackChunkName: "Bye" */ './Bye'),
+  loading: () => <div>Loading...</div>
+});
 
-export default Bye;
+export default LoadableBye;
