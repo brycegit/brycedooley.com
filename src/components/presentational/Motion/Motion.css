@@ -1,0 +1,83 @@
+.square {
+	width: 100px;
+	height: 100px;
+/* 	background-color: blue; */
+	
+	position: absolute;
+/* 	transform: rotate(45deg); */
+}
+.cont{
+	transform: rotate(45deg);
+/* 	will-change: transform; */
+}
+.base {
+  position: absolute;
+  box-sizing: border-box;
+}
+.base.center {
+  left: 2rem;
+  width: 7rem;
+  height: 11rem;
+  background: #f6f7f8;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#b2b1b1), to(#f6f7f8));
+  background-image: -webkit-linear-gradient(bottom, #b2b1b1 0%, #f6f7f8 100%);
+  background-image: -o-linear-gradient(bottom, #b2b1b1 0%, #f6f7f8 100%);
+  background-image: linear-gradient(to top, #b2b1b1 0%, #f6f7f8 100%);
+  border-radius: 50% / 70% 70% 5% 5%;
+}
+.base.window {
+  top: 3rem;
+  left: 3.5rem;
+  width: 4rem;
+  height: 4rem;
+  background: #70b9e6;
+  border: 0.5rem solid #808899;
+  border-radius: 100%;
+  -webkit-box-shadow: inset -0.3rem 0.2rem 0.2rem 0 #fff;
+  box-shadow: inset -0.3rem 0.2rem 0.2rem 0 #fff;
+}
+.base.exhaust {
+  z-index: -1;
+  top: 10rem;
+  left: 2.5rem;
+  width: 6rem;
+  height: 2rem;
+  background: #2f3448;
+  border-radius: 20%;
+}
+.base.flame {
+  z-index: -2;
+  top: 10rem;
+  left: 3.5rem;
+  width: 4rem;
+  height: 4rem;
+  background: #fbd730;
+  border: 0.5rem solid #f18720;
+  border-radius: 80% 0 50% 45% / 50% 0% 80% 45%;
+  -webkit-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+  -webkit-animation: flameMove 0.25s infinite both ease-in;
+  animation: flameMove 0.25s infinite both ease-in;
+}
+
+.fin {
+  position: absolute;
+  width: 2rem;
+  height: 6rem;
+}
+.fin.left, .fin.right {
+  top: 7rem;
+  background: #db314e;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#862033), to(#db314e));
+  background-image: -webkit-linear-gradient(bottom, #862033 0%, #db314e 100%);
+  background-image: -o-linear-gradient(bottom, #862033 0%, #db314e 100%);
+  background-image: linear-gradient(to top, #862033 0%, #db314e 100%);
+}
+.fin.left {
+  border-radius: 3rem 0 50% 100%;
+}
+.fin.right {
+  left: 9rem;
+  border-radius: 0 3rem 100% 50%;
+}

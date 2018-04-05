@@ -1,5 +1,13 @@
 * {
 	font-family: Helvetica, Arial, sans-serif;
-	color: #eee;
+	color: #ddd;
 	text-align: center;
+}
+
+:global(.bold) {
+	font-weight: 400;
+}
+
+::placeholder {
+  color: gray;
 }

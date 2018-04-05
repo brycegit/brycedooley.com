@@ -1,10 +1,10 @@
 import React from 'react';
-import './Hello.css';
+import styles from './Hello.css';
 
 const Hello = ({ message }) => {
 	return (
-	<div className='hello'>
-		<div className='big'>This is the main big stuff!</div>
+	<div className={styles.hello}>
+		<div className={styles.big}>Thissss is the main big stuff!</div>
 		<h1>{message}</h1>
 		<h2>{message}</h2>
 		<h3>{message}</h3>

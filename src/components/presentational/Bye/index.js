@@ -6,4 +6,6 @@ const LoadableBye = Loadable({
   loading: () => <div>Loading...</div>
 });
 
+LoadableBye.displayName = 'LoadableBye';
+
 export default LoadableBye;
