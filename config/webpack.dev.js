@@ -1,7 +1,9 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const path = require('path');
 const webpack = require('webpack');
-const TestPlugin = require('./TestPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const TestPlugin = require('./TestPlugin');
 
 const nameScheme = (type) => '[name].[hash:5].' + type;
 
@@ -19,16 +21,20 @@ module.exports = merge.strategy(
   },
 	module: {
 		rules: [
-			{ 
-				test: /\.css$/, 
-				exclude: /node_modules/, 
+			{
+				test: /\.css$/,
+				exclude: /node_modules/,
 				use: ['style-loader']
 			}
 		]
 	},
 	plugins: [
-		new webpack.NamedModulesPlugin(), 
+		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		new TestPlugin()
+    new HtmlWebpackPlugin({
+    	template: path.resolve(__dirname, 'index.html'),
+    	hash: true,
+    	cache: false
+    })
 	]
 });

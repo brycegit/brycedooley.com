@@ -8,6 +8,10 @@
 	font-weight: 400;
 }
 
+:global(.header) {
+	background-color: blue;
+}
+
 ::placeholder {
   color: gray;
 }
