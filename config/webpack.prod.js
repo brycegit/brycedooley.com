@@ -9,7 +9,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 const webpack = require('webpack');
 
-const nameScheme = (type) => '[name].' + type;
+const nameScheme = (type) => '[name].[chunkhash:5].' + type;
 
 module.exports = merge.strategy(
 	{
@@ -30,8 +30,8 @@ module.exports = merge.strategy(
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: 'styles.css',
-			chunkFilename: nameScheme('css')
+			filename: '[name].[contenthash:5].css',
+			chunkFilename: '[name].[contenthash:5].css'
     }),
     new StaticSiteGeneratorPlugin({
       paths: [
@@ -55,7 +55,7 @@ module.exports = merge.strategy(
       dest: 'index.html',
       inline: true,
       minify: true,
-      extract: true,
+      extract: false,
       width: 375,
       height: 565,
       penthouse: {
@@ -66,11 +66,15 @@ module.exports = merge.strategy(
       sourceMap: true
     }),
     new OptimizeCssAssetsPlugin(),
-		// new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': JSON.stringify('production')
-		// }),
+		new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+		})
 		// new ScriptExtHtmlWebpackPlugin({
 		// 	defaultAttribute: 'defer'
 		// })
-	]
+	],
+  output: {
+    chunkFilename: nameScheme('js'),
+    filename: nameScheme('js')
+  }
 });

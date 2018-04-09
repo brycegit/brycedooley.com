@@ -20,7 +20,7 @@ const Test = (app, styleSheet, inlineCss) => (
         ${app}
       </div>
     </body>
-    <script src="app.js"></script>
+    <script defer src="app.js"></script>
   </html>`
 );
 

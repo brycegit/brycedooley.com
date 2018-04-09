@@ -14,7 +14,7 @@ class App extends Component {
   }
   render() {
     return 	(<React.Fragment>
-    		<Hello message='Seriously, best message ever. Nice work!' />
+    		<Hello message='Seriously, best message ever. Nice work!!' />
     	  {this.state.show && <Bye />}
         <div onClick={this.click}>clck</div>
     	</React.Fragment>)

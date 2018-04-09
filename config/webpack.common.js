@@ -3,10 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 
-const nameScheme = (type) => '[name].' + type;
+const nameScheme = (type) => '[name].[chunkhash:5].' + type;
 
 module.exports = {
-	mode: 'development', //process.env.NODE_ENV || 'development',
+	mode: process.env.NODE_ENV || 'development',
   entry: {
     app: path.resolve(__dirname, '../src/index.js'),
   },
@@ -18,10 +18,6 @@ module.exports = {
         exclude: /node_modules/,
         use: 'babel-loader'
       },
-  //     {
-  //  test: /\.html$/,
-  //  loader: 'html-loader'
-  // },
 			{
       	test: /\.css$/,
       	exclude: /node_modules/,
@@ -30,7 +26,7 @@ module.exports = {
           	loader: "css-loader",
           	options: {
           		modules: true,
-          		localIdentName: '[name]__[local]___[hash:base64:5]'
+          		localIdentName: '[name]__[local]', //___[hash:base64:5]'
           	}
 					},
 					{
@@ -49,10 +45,8 @@ module.exports = {
 		})
 	],
 	output: {
-  	chunkFilename: nameScheme('js'),
-    filename: nameScheme('js'),
     path: path.resolve(__dirname, '../dist'),
     publicPath: '',
     libraryTarget: 'umd',
-  },
+  }
 };

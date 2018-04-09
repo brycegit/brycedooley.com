@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const TestPlugin = require('./TestPlugin');
 
-const nameScheme = (type) => '[name].[hash:5].' + type;
+const nameScheme = (type) => '[name].' + type;
 
 module.exports = merge.strategy(
 	{
@@ -36,5 +36,9 @@ module.exports = merge.strategy(
     	hash: true,
     	cache: false
     })
-	]
+	],
+  output: {
+    chunkFilename: nameScheme('js'),
+    filename: nameScheme('js')
+  }
 });

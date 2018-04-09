@@ -23,26 +23,44 @@ if (typeof global.document !== 'undefined') {
 // module.exports = function render(locals) {
 //   return '<html>' + locals.greet + ' from ' + locals.path + '</html>';
 // };
+try {
+  module.exports = function render(data) {
+    const js = Object.keys(data.webpackStats.compilation.assets);
+    // console.log('yea>>', data.webpackStats);
+    const assetNames = Object.keys(data.webpackStats.compilation.assets);
+    const entryName = data.webpackStats.compilation.entrypoints.keys().next().value;
 
-module.exports = function render(data) {
-  const css = data.webpackStats.compilation.assets['styles.css'].source();
-  console.log('cssssss', css);
-  const cont = Test(ReactDOMServer.renderToStaticMarkup(<App />), 'styles.css', null);
-  return {
-    '/': cont,
-    '/hello.html': '<html>World</html>'
-    // '/world': '<html>World</html>'
+    const entryRegEx = new RegExp(entryName, 'g', '.css', '$');
+
+    const stylesheetName = assetNames.find(asset => asset.match(entryRegEx));
+    // console.log(stylesheetName);
+    // const css = data.webpackStats.compilation.assets['styles.css'].source();
+    const cont = Test(ReactDOMServer.renderToStaticMarkup(<App />), stylesheetName, null);
+    return {
+      '/': cont,
+      '/hello.html': '<html>World</html>'
+      // '/world': '<html>World</html>'
+    };
   };
-};
+} catch(e) {
+  console.log('err in index.js', e);
+}
+
 
 
 /*
 TO DO
-static react shell made from components in index.html
-	try https://github.com/dangw/react-render-plugin and/or https://github.com/markdalgleish/static-site-generator-webpack-plugin
-	figure out webpack api & how to get rendered component html
-cacheing
+cacheing / try to pull in dynamic file names for cacheing
 move nameScheme to config/lib
-svg tutorial
+add second page
+see if config works on both dev and prod webpack configs
+clean up (style names, comments)
+good fix for static webpack plugin issue
+look at need for coomon chunks...rewatch vid to see if my vendor  files are bing chunked
 
+rendering ex: https://jaketrent.com/post/react-routing-static-site-browser/
+
+write article
+finish svg tutorial
+webpack deep dive
 */
