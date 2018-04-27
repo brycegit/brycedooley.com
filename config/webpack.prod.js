@@ -10,9 +10,6 @@ const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin'
 const webpack = require('webpack');
 
 const nameScheme = (type) => '[name].[chunkhash:5].' + type;
-
-// const groupsOptions = {chunks: "all", minSize:0, minChunks: 1, reuseExistingChunk: true, enforce: true};
-
 module.exports = merge.strategy(
 	{
 		'module.rules': 'prepend',
@@ -69,7 +66,6 @@ module.exports = merge.strategy(
           minChunks: 2,
           priority: 2,
           minSize: 100
-          // enforce: true
         }
     }
       // cacheGroups: {
@@ -134,12 +130,6 @@ module.exports = merge.strategy(
       'process.env.NODE_ENV': JSON.stringify('production')
 		}),
     // new webpack.HashedModuleIdsPlugin(),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common'
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'manifest'
-    // }),
 		// new ScriptExtHtmlWebpackPlugin({
 		// 	defaultAttribute: 'defer'
 		// })
