@@ -5,24 +5,27 @@ import './global.css';
 // import Bye from './components/presentational/Bye';
 // import Motion from './components/presentational/Motion/Motion';
 
-const Test = (app, styleSheet, inlineCss) => (
-  `<html>
-    <head>
-      <title>brycedooley.com</title>
-      <link href="${styleSheet}" rel="stylesheet">
-    </head>
-    <style>${inlineCss}</style>
-    <body>
-    	<div class="header"><%= htmlWebpackPlugin.options.title %></div>
-      <a href="hello.html">GOOO</a>
-      <div class="big">Thissss is the main big stuff!</div>
-      <div id="app">
-        ${app}
-      </div>
-    </body>
-    <script defer src="app.js"></script>
-  </html>`
-);
+const Test = (app, styleSheet, jsFiles) => {
+const scriptTags = jsFiles.map(fileName => `<script defer src="${fileName}"></script>`);
+
+  return (
+    `<html>
+      <head>
+        <title>brycedooley.com</title>
+        <link href="${styleSheet}" rel="stylesheet">
+      </head>
+      <body>
+      	<div class="header">HERTIS</div>
+        <a href="hello.html">GOOO</a>
+        <div class="big">Thissss is the main big stuff!</div>
+        <div id="app">
+          ${app}
+        </div>
+      </body>
+      ${scriptTags.join('')}
+    </html>`
+  );
+}
 
 // const html = ReactDOMServer.renderToString(<App />);
 
