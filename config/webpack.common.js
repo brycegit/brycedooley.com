@@ -9,6 +9,7 @@ module.exports = {
 	mode: process.env.NODE_ENV || 'development',
   entry: {
     app: path.resolve(__dirname, '../src/index.js'),
+    // vendor: ['react', 'react-dom']
   },
   module: {
     rules: [
@@ -23,8 +24,8 @@ module.exports = {
       	exclude: /node_modules/,
 				use: [
           {
-          	loader: "css-loader",
-          	options: {
+            loader: "css-loader",
+            options: {
           		modules: true,
           		localIdentName: '[name]__[local]', //___[hash:base64:5]'
           	}
@@ -42,7 +43,12 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(['dist'], {
 			root: process.cwd()
-		})
+    }),
+    new HtmlWebpackPlugin({
+    	template: path.resolve(__dirname, 'index.html'),
+    	hash: true,
+    	cache: false
+    })
 	],
 	output: {
     path: path.resolve(__dirname, '../dist'),
