@@ -65,7 +65,7 @@ module.exports = merge.strategy(
           name: "vendor",
           minChunks: 2,
           priority: 2,
-          minSize: 100
+          minSize: 10
         }
     }
       // cacheGroups: {
