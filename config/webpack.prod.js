@@ -59,14 +59,16 @@ module.exports = merge.strategy(
             name: "commons",
             chunks: "all",
             minChunks: 2,
-            priority: 2
+            priority: 1,
+            minSize: 10
         },
         vendor: {
           test: /node_modules/,
           chunks: "all",
           name: "vendor",
-          minChunks: 1,
-          priority: 1,
+          minChunks: 2,
+          priority: 2,
+          minSize: 100
           // enforce: true
         }
     }
