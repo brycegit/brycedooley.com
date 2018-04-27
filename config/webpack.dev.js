@@ -17,7 +17,8 @@ module.exports = merge.strategy(
   devtool: 'inline-source-map',
   devServer: {
   	contentBase: './dist',
-  	hot: true
+    hot: true,
+    historyApiFallback: true
   },
 	module: {
 		rules: [
@@ -30,13 +31,27 @@ module.exports = merge.strategy(
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-    	template: path.resolve(__dirname, 'index.html'),
-    	hash: true,
-    	cache: false
-    })
+		new webpack.HotModuleReplacementPlugin()
 	],
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         chunks: "initial",
+  //         minChunks: 2,
+  //         maxInitialRequests: 5, // The default limit is too small to showcase the effect
+  //         minSize: 0 // This is example is too small to create commons chunks
+  //       },
+  //       vendor: {
+  //         test: /node_modules/,
+  //         chunks: "initial",
+  //         name: "vendor",
+  //         priority: 10,
+  //         enforce: true
+  //       }
+  //     }
+  //   }
+  // },
   output: {
     chunkFilename: nameScheme('js'),
     filename: nameScheme('js')
