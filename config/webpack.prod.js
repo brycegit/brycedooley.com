@@ -28,26 +28,6 @@ module.exports = merge.strategy(
 		]
 	},
   optimization: {
-    // splitChunks: {
-    //   cacheGroups: {
-    //       commons: {
-    //           name: "commons",
-    //           chunks: "initial",
-    //           minChunks: 1
-    //       }
-    //   }
-    // },
-    // runtimeChunk: 'single'
-    // splitChunks: {
-      // chunks: 'all'
-      // cacheGroups: {
-      //     commons: {
-      //         test: /[\\/]node_modules[\\/]/,
-      //         name: "vendors",
-      //         chunks: "all"
-      //     }
-      // }
-    // }
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
@@ -67,24 +47,7 @@ module.exports = merge.strategy(
           priority: 2,
           minSize: 10
         }
-    }
-      // cacheGroups: {
-      //   commons: {
-      //     chunks: "initial",
-      //     test: /src/,
-      //     name: 'commons',
-      //     minChunks: 1,
-      //     maxInitialRequests: 10, // The default limit is too small to showcase the effect
-      //     minSize: 100 // This is example is too small to create commons chunks
-      //   },
-      //   vendor: {
-      //     test: /node_modules/,
-      //     chunks: "initial",
-      //     name: "vendor",
-      //     priority: 10,
-      //     enforce: true
-      //   }
-      // }
+      }
     },
     // runtimeChunk: 'single'
   },
