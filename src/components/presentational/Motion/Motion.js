@@ -2,26 +2,26 @@ require('babel-register')
 
 import React, { Component } from 'react';
 import { tween, styler } from 'popmotion';
-// import styles from './motion.css';
+import styles from './motion.css';
 import posed, { PoseGroup } from 'react-pose';
 
 const Rocket = () => {
 	return (
-// 		<div className={styles.cont}>
-// 			<div className={styles.rocket}>
-// 				<div className={styles.base}>
-// 					<div className={`${styles.base} ${styles.center}`}></div>
-// 					<div className={`${styles.base} ${styles.window}`}></div>
-// 					<div className={`${styles.base} ${styles.exhaust}`}></div>
-// 					<div className={`${styles.base} ${styles.flame}`}></div>
-// 				</div>
-// 				<div className={styles.fin}>
-// 					<div className={styles.fin + " " + styles.left}></div>
-// 					<div className={styles.fin + " " + styles.right}></div>
-// 				</div>
-// 			</div>
-// 		</div>
-	<div>Rocket</div>
+		<div className={styles.cont}>
+			<div className={styles.rocket}>
+				<div className={styles.base}>
+					<div className={`${styles.base} ${styles.center}`}></div>
+					<div className={`${styles.base} ${styles.window}`}></div>
+					<div className={`${styles.base} ${styles.exhaust}`}></div>
+					<div className={`${styles.base} ${styles.flame}`}></div>
+				</div>
+				<div className={styles.fin}>
+					<div className={styles.fin + " " + styles.left}></div>
+					<div className={styles.fin + " " + styles.right}></div>
+				</div>
+			</div>
+		</div>
+	// <div>Rocket</div>
 	)
 }
 
@@ -60,7 +60,7 @@ class Motion extends Component {
 	}
 	
 	componentDidMount() {
-		setTimeout(() => this.setState({isVisible: !this.state.isVisible}), 3500);
+		// setTimeout(() => this.setState({isVisible: !this.state.isVisible}), 3500);
 	}
 }
 

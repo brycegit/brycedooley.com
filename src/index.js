@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import App from './App';
 import Test from './Test';
 
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter, StaticRouter } from 'react-router-dom'
 
 if (typeof global.document !== 'undefined') {
   const rootEl = document.getElementById('app');
@@ -13,15 +13,20 @@ if (typeof global.document !== 'undefined') {
   // console.log('here tis', stat);
 
   ReactDOM.render((
-    <Router>
+    <BrowserRouter>
       <App />
-    </Router>
+    </BrowserRouter>
   ), rootEl);
 
   if (module.hot) {
     module.hot.accept('./App', () => {
+      const NextRouter = require('react-router-dom').BrowserRouter;
       const NextRootContainer = require('./App').default;
-      ReactDOM.render(<NextRootContainer />, rootEl);
+      ReactDOM.render(
+        <NextRouter>
+          <NextRootContainer />
+        </NextRouter>,
+      rootEl);
     })
   }
 }
@@ -29,39 +34,66 @@ if (typeof global.document !== 'undefined') {
 // module.exports = function render(locals) {
 //   return '<html>' + locals.greet + ' from ' + locals.path + '</html>';
 // };
-// try {
-//   module.exports = function render(data) {
-//     const js = Object.keys(data.webpackStats.compilation.assets);
-//     // console.log('yea>>', data.webpackStats);
-//     const assetNames = Object.keys(data.webpackStats.compilation.assets);
-//     // console.log(assetNames);
-//     const entryName = data.webpackStats.compilation.entrypoints.keys().next().value;
+  module.exports = function render(data) {
+    const assetNames = Object.keys(data.webpackStats.compilation.assets);
 
-//     const entryRegEx = new RegExp(entryName, 'g', '.css', '$');
-//     // const jsEntryRegEx = new RegExp(entryName, 'g', '.js', '$');
+    const entryName = data.webpackStats.compilation.entrypoints.keys().next().value;
 
-//     const stylesheetName = assetNames.find(asset => asset.match(entryRegEx));
-//     const scriptNames = assetNames.filter(asset => asset.slice(-2) === 'js');
-//     console.log('hrrrrr=>>', scriptNames);
-//     // const css = data.webpackStats.compilation.assets['styles.css'].source();
-//     const cont = Test(ReactDOMServer.renderToStaticMarkup(<App />), stylesheetName, scriptNames);
-//     return {
-//       '/': cont,
-//       '/hello.html': '<html>World</html>'
-//       // '/world': '<html>World</html>'
-//     };
-//   };
-// } catch(e) {
-//   console.log('err in index.js', e);
-// }
+    const cssRegEx = new RegExp(/\.css$/);
+    const cssFileNames = getAssetNames(cssRegEx, assetNames, entryName);
 
+    const jsRegEx = new RegExp(/\.js$/);
+    const jsFileNames = getAssetNames(jsRegEx, assetNames, entryName);
 
+    // console.log('filenames',cssFileNames,jsFileNames );
+    
+
+    // const scriptNames = assetNames.filter(asset => asset.match(jsRegEx));
+    // console.log('ss namezzz=>>', stylesheetNames);
+    // const mainStyleSheetName = stylesheetNames.find(asset => asset.match(/^app.*css$/));
+    // console.log('gonna get that css');
+    console.log(data.path);
+    
+    
+    const staticStyles = data.webpackStats.compilation.assets[cssFileNames.core].source();
+    // console.log('got that csssss', staticStyles);
+    
+    const cont = Test(ReactDOMServer.renderToStaticMarkup(
+    <StaticRouter location={data.path} context={{}}>
+      <App />
+    </StaticRouter>
+    ), cssFileNames, staticStyles, jsFileNames);
+
+    return {[getHtmlFileName(data.path)]: cont};
+  };
+
+const getHtmlFileName = path => {
+  const fileName = path === '/' ? 
+    'index' : 
+    path === 'index.html' ? 
+    'app' : 
+    path.slice(1);
+  const fileNameWithExt = fileName + '.html'; 
+
+  return fileNameWithExt;
+}
+
+const getAssetNames = (regEx, assetNames, entryName) => {
+  const coreRegEx = new RegExp(entryName);
+
+  return assetNames.reduce((types, name) => {
+    if(name.match(regEx)) {
+      const prop = name.match(coreRegEx) ? 'core' : 'other';
+      types[prop] = types[prop] || [];
+      types[prop].push(name);
+    }
+    
+    return types;
+  }, {});
+}
 
 /*
 TO DO
-cacheing / try to pull in dynamic file names for cacheing
-  read webpack doc and try to set up vendor stuff correctly
-  then try to set up ssr while keeping structure in tact
 whaat does this do? new webpack.HashedModuleIdsPlugin(),
 move nameScheme to config/lib
 add second page

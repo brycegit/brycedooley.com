@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import ReactDOMServer from 'react-dom/server';
-import './global.css';
+import styles from './global.css';
 import Hello from './components/presentational/Hello';
 import Bye from './components/presentational/Bye';
 import Another from './components/presentational/Another';
@@ -27,13 +27,15 @@ class App extends Component {
   render() {
     return 	(
       <div>
+        <Link to='/'>HOME</Link>
         <Link to='/hi'>HI</Link>
         <Link to='/bye'>BYE</Link>
         <Link to='/hello'>Hello</Link>
         <Link to='/om'>om</Link>
+        <div className={styles.red}>Hey I;m the header :>>//??</div>
         <Route exact path ='/' component={Another} />
         <Route path ='/hi' component={Hi} />
-        <Route path ='/bye' component={Bye} />
+        {/* <Route path ='/bye' component={Bye} /> */}
         <Route path ='/hello' render={() => <Hello message={'Oh hey this is what I wanna tell you!'} />} />
         <Route path ='/om' component={OneMore} />
       </div>

@@ -5,24 +5,31 @@ import './global.css';
 // import Bye from './components/presentational/Bye';
 // import Motion from './components/presentational/Motion/Motion';
 
-const Test = (app, styleSheet, jsFiles) => {
-const scriptTags = jsFiles.map(fileName => `<script defer src="${fileName}"></script>`);
+const Test = (app, cssFiles, staticStyles, jsFiles) => {
+  console.log('started', app, cssFiles, staticStyles, jsFiles);
+  
+const coreScriptTags = jsFiles.core.map(fileName => `<script defer src="${fileName}"></script>`);
+const deferScriptTags = jsFiles.other.map(fileName => `<script defer src="${fileName}"></script>`);
+const scriptTags = coreScriptTags.concat(deferScriptTags);
+
+const styleLinks = cssFiles.other.map(styleSheet => `<link href="${styleSheet}" rel="stylesheet" />`);
+console.log(scriptTags, styleLinks, staticStyles);
 
   return (
     `<html>
       <head>
         <title>brycedooley.com</title>
-        <link href="${styleSheet}" rel="stylesheet">
+         
+        <style>
+          ${staticStyles}
+        </style>
       </head>
       <body>
-      	<div class="header">HERTIS</div>
-        <a href="hello.html">GOOO</a>
-        <div class="big">Thissss is the main big stuff!</div>
         <div id="app">
           ${app}
         </div>
       </body>
-      ${scriptTags.join('')}
+      ${coreScriptTags.join('')}
     </html>`
   );
 }
