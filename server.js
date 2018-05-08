@@ -19,11 +19,28 @@ if (cluster.isMaster) {
 } else {
   const app = express();
 
-  app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.static(path.join(__dirname, '/dist'), {
+    extensions: ['html']
+  }));
+
+  // app.get('/', function(req, res) {
+  //   res.sendFile(path.join(__dirname + '/dist'));
+  // });
+
+
+  // app.get('*', function (req, res) {}
 
   app.get('*', function (req, res) {
-    res.sendFile("index.html", { root: path.join(__dirname, 'dist') })
-  })
+    // let thing = 0;
+    // console.log('num is ', thing);
+    // thing++;
+    // console.log(req.query, req.query, req.headers, req.originalUrl)
+    const pathSections = req.originalUrl.split('/');
+    // setTimeout(() => {
+    //   res.sendFile(pathSections[pathSections.length - 1], { root: path.join(__dirname, '/dist') })
+    // }, 5000);
+    res.sendFile(pathSections[pathSections.length - 1], { root: path.join(__dirname, '/dist') })
+  });
 
   app.listen(PORT);
 }
