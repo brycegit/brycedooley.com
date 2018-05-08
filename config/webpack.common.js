@@ -43,11 +43,6 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(['dist'], {
 			root: process.cwd()
-    }),
-    new HtmlWebpackPlugin({
-    	template: path.resolve(__dirname, 'index.html'),
-    	hash: true,
-    	cache: false
     })
 	],
 	output: {
