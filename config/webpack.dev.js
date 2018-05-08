@@ -30,7 +30,12 @@ module.exports = merge.strategy(
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+    	template: path.resolve(__dirname, 'index.html'),
+    	hash: true,
+    	cache: false
+    })
 	],
   output: {
     chunkFilename: nameScheme('js'),
