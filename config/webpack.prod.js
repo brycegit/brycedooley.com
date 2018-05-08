@@ -24,67 +24,92 @@ module.exports = merge.strategy(
 				test: /\.css$/,
 				exclude: /node_modules/,
 				use: MiniCssExtractPlugin.loader
-			}
+      }
+      // {
+			// 	test: /\.css$/,
+			// 	exclude: /node_modules/,
+			// 	use: ['style-loader']
+      // }
+      // {
+      //   test: /\.css$/,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: "style-loader",
+      //     use: "css-loader"
+      //   })
+      // }
+      // {
+      //   test: /\.css$/,
+      //   use: ExtractCssChunks.extract({
+      //     use: {
+      //       loader: 'css-loader',
+      //       options: {
+      //         modules: true,
+      //         localIdentName: '[name]__[local]--[hash:base64:5]'
+      //       }
+      //     }
+      //   })
+      // }
 		]
 	},
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        commons: {
-            test: /components/,
-            name: "commons",
-            chunks: "all",
-            minChunks: 2,
-            priority: 1,
-            minSize: 10
-        },
-        vendor: {
-          test: /node_modules/,
-          chunks: "all",
-          name: "vendor",
-          minChunks: 2,
-          priority: 2,
-          minSize: 10
-        }
-      }
-    },
-    // runtimeChunk: 'single'
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     cacheGroups: {
+  //       commons: {
+  //           test: /components/,
+  //           name: "commons",
+  //           chunks: "all",
+  //           minChunks: 2,
+  //           priority: 1,
+  //           minSize: 10
+  //       },
+  //       vendor: {
+  //         test: /node_modules/,
+  //         chunks: "all",
+  //         name: "vendor",
+  //         minChunks: 2,
+  //         priority: 2,
+  //         minSize: 10
+  //       }
+  //     }
+  //   },
+  //   // runtimeChunk: 'single'
+  // },
 	plugins: [
-		new MiniCssExtractPlugin({
+    new StaticSiteGeneratorPlugin({
+      paths: [
+        'index.html',
+        // '/hello'
+      ],
+      crawl: true,
+      globals: {
+        window: {}
+      },
+      entry: 'app',
+      locals: {
+        // Properties here are merged into `locals`
+        // passed to the exported render function
+        greet: 'Hello',
+        
+      }
+    }),
+    new MiniCssExtractPlugin({
 			filename: '[name].[contenthash:5].css',
 			chunkFilename: '[name].[contenthash:5].css'
     }),
-    // new StaticSiteGeneratorPlugin({
-    //   paths: [
-    //     '/',
-    //     '/hello'
-    //   ],
-    //   // crawl: true,
-    //   globals: {
-    //     window: {}
-    //   },
-    //   entry: ['app', 'vendor'],
-    //   locals: {
-    //     // Properties here are merged into `locals`
-    //     // passed to the exported render function
-    //     greet: 'Hello'
+    // new HtmlCriticalPlugin({
+    //   base: path.resolve(__dirname, '../dist'),
+    //   src: 'index.html',
+    //   dest: 'index.html',
+    //   inline: true,
+    //   minify: true,
+    //   extract: false,
+    //   width: 375,
+    //   height: 565,
+    //   penthouse: {
+    //     blockJSRequests: false,
     //   }
     // }),
-    new HtmlCriticalPlugin({
-      base: path.resolve(__dirname, '../dist'),
-      src: 'index.html',
-      dest: 'index.html',
-      inline: true,
-      minify: true,
-      extract: false,
-      width: 375,
-      height: 565,
-      penthouse: {
-        blockJSRequests: false,
-      }
-    }),
 		new UglifyJSPlugin({
       sourceMap: true
     }),
@@ -99,6 +124,7 @@ module.exports = merge.strategy(
 	],
   output: {
     chunkFilename: nameScheme('js'),
-    filename: nameScheme('js')
+    filename: nameScheme('js'),
+    libraryTarget: 'umd'
   }
 });
